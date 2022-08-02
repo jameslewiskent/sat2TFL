@@ -1,0 +1,18 @@
+clear
+close all
+
+B1(1) = 0.00000000001;
+
+
+[outmx,outmy,outmz] = bloch([ 0 0.001],gr,[0 B1(1)],t1,t2,df,dp,mode,mx,my,mz)
+signal(1) = (outmz(2));
+for counter = 2 : 100
+
+    t1 = 1;
+    t2 = 0.040;
+    B1(counter) = B1(counter-1) * 1.1;
+    [outmx,outmy,outmz] = bloch([ 0 0.001],[ 0 0],[0 B1(counter)],t1,t2,df,dp,mode,mx,my,mz)
+    signal(counter) = (outmz(2));
+    
+end
+plot((B1),signal)
